@@ -36,10 +36,12 @@ class TweetDfExtractor:
 
     # an example function
     def find_statuses_count(self)->list:
-        statuses_count 
+        statuses_count  = [x['user']['statuses_count'] for x in self.tweets_list]
+
+        return statuses_count
         
     def find_full_text(self)->list:
-        text = 
+        text
        
     
     def find_sentiments(self, text)->list:
@@ -51,7 +53,7 @@ class TweetDfExtractor:
         return created_at
 
     def find_source(self)->list:
-        source = 
+        source
 
         return source
 
@@ -82,7 +84,7 @@ class TweetDfExtractor:
         hashtags =
 
     def find_mentions(self)->list:
-        mentions = 
+        mentions =
 
 
     def find_location(self)->list:
