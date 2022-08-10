@@ -62,17 +62,17 @@ class Clean_Tweets:
 
 
 
-    if __name__ == "__main__":
-        cleaned_df = pd.read_csv('data/processed_tweet_data.csv', sep='|', encoding='latin-1')
-        clean_tweets = Clean_Tweets(cleaned_df)
-        cleaned_df = clean_tweets.drop_duplicate(cleaned_df)
-        cleaned_df = clean_tweets.remove_non_english_tweets(cleaned_df)
-        cleaned_df = clean_tweets.convert_to_datetime(cleaned_df)
-        cleaned_df = clean_tweets.drop_unwanted_column(cleaned_df)
-        cleaned_df = clean_tweets.convert_to_numbers(cleaned_df)
-        #cleaned_df = clean_tweets.tweet_preprocessing(cleaned_df)
+if __name__ == "__main__":
+    cleaned_df = pd.read_csv('data/processed_tweet_data.csv', encoding='ISO-8859-1')
+    clean_tweets = Clean_Tweets(cleaned_df)
+    cleaned_df = clean_tweets.drop_duplicate(cleaned_df)
+    cleaned_df = clean_tweets.remove_non_english_tweets(cleaned_df)
+    cleaned_df = clean_tweets.convert_to_datetime(cleaned_df)
+    cleaned_df = clean_tweets.drop_unwanted_column(cleaned_df)
+    cleaned_df = clean_tweets.convert_to_numbers(cleaned_df)
+    #cleaned_df = clean_tweets.tweet_preprocessing(cleaned_df)
 
-        print(cleaned_df['polarity'][0:5])
+    print(cleaned_df['polarity'][0:5])
 
-        cleaned_df.to_csv('data/clean_processed_tweet_data.csv')
-        print('File save!!!')
+    cleaned_df.to_csv('data/clean_processed_tweet_data.csv')
+    print('File save!!!')
