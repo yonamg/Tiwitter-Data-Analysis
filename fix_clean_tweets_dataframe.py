@@ -47,7 +47,12 @@ class Clean_Tweets:
         favorite_count etc to numbers
         """
         df['polarity'] = pd.to_numeric(df['polarity'], errors='coerce')
-        
+        df['polarity'] = pd.to_numeric(df['polarity'], errors='coerce')
+        df['subjectivity'] = pd.to_numeric(df['subjectivity'], errors='coerce')
+        df['retweet_count'] = pd.to_numeric(df['retweet_count'], errors='coerce')
+        df['favorite_count'] = pd.to_numeric(df['favorite_count'], errors='coerce')
+        df["friends_count"] = pd.to_numeric(df["friends_count"], errors='coerce')
+        df["followers_count"] = pd.to_numeric(df["followers_count"], errors='coerce')
         return df
     
     def remove_non_english_tweets(self, df:pd.DataFrame)->pd.DataFrame:
