@@ -1,3 +1,8 @@
+from nltk.corpus import stopwords, words
+from nltk.tokenize import word_tokenize
+import pandas as pd
+import re
+
 class Clean_Tweets:
     """
     The PEP8 Standard AMAZING!!!
