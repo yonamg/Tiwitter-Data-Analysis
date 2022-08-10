@@ -41,13 +41,11 @@ class TweetDfExtractor:
         return statuses_count
         
     def find_full_text(self)->list:
-        text = []
-        for x in self.tweets_list:
-            try:
-                text.append(x['retweeted_status']['extended_tweet']['full_text'])
-            except KeyError:
-                text.append(x['text'])
-            return text
+        try:
+            text = [x['full_text'] for x in self.tweets_list]
+        except KeyError:
+            text = None
+        return text
        
     
     def find_sentiments(self, text)->list:
@@ -67,15 +65,15 @@ class TweetDfExtractor:
         return source
 
     def find_screen_name(self)->list:
-        screen_name =  [x['user']['screen_name'] for x in self.tweets_list]
+        screen_name = [x['user']['screen_name'] for x in self.tweets_list]
         return screen_name
 
     def find_followers_count(self)->list:
-        followers_count =   [x['user']['follower_count'] for x in self.tweets_list]
+        followers_count = [x['user']['followers_count'] for x in self.tweets_list]
         return followers_count
 
     def find_friends_count(self)->list:
-        friends_count =  [x['user']['friends_count'] for x in self.tweets_list]
+        friends_count = [x['user']['friends_count'] for x in self.tweets_list]
         return friends_count
 
     def is_sensitive(self)->list:
@@ -121,9 +119,12 @@ class TweetDfExtractor:
         
         return location
 
-    
-        
-        
+    def find_lang(self) -> list:
+        lang = [x['lang'] for x in self.tweets_list]
+
+        return lang
+
+
     def get_tweet_df(self, save=False)->pd.DataFrame:
         """required column to be generated you should be creative and add more features"""
         
