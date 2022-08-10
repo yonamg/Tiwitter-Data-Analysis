@@ -69,4 +69,34 @@ class Clean_Tweets:
         from nltk.corpus import stopwords
         from cleantext import clean
 
-        
+        self.df['original_text'] = self.df['original_text'].str.lower()
+        self.df['original_text'] = self.df['original_text'].str.replace('(@\w+.*?)', "")
+        self.df['original_text'] = self.df['original_text'].astype(str).apply(lambda x: x.encode('latin-1', 'ignore').decode('latin-1'))
+        self.df['original_text'] = self.df['original_text'].str.replace('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', ' ')
+        self.df['original_text'] = self.df['original_text'].apply(lambda x: ''.join([i for i in x if i not in string.punctuation]))
+        english_stopwords = stopwords.words('english')
+        user_stop_words = ['2022', '2', 'rt', 'much', 'next', 'cant', 'wont', 'hadnt',
+                           'havent', 'hasnt', 'isnt', 'shouldnt', 'couldnt', 'wasnt', 'werent',
+                           'mustnt', 'amp', '10', '100', 'pm', '’', '...', '..', '.', '.....', '....', 'been…', 'one',
+                           'two',
+                           'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'aht',
+                           've']
+        stop = english_stopwords + user_stop_words
+        self.df['original_text'] = self.df['original_text'].apply(lambda x: ' '.join([word for word in x.split() if word not in (stop)]))
+        self.df.drop(self.df[self.df['original_text'] == ''].index, inplace=True)
+
+        return self.df
+
+    if __name__ == "__main__":
+        cleaned_df = pd.read_csv("data/processed_tweet_data.csv")
+        clean_tweets = Clean_Tweets(cleaned_df)
+        cleaned_df = clean_tweets.drop_duplicate(cleaned_df)
+        cleaned_df = clean_tweets.remove_non_english_tweets(cleaned_df)
+        cleaned_df = clean_tweets.convert_to_datetime(cleaned_df)
+        cleaned_df = clean_tweets.drop_unwanted_column(cleaned_df)
+        cleaned_df = clean_tweets.convert_to_numbers(cleaned_df)
+        cleaned_df = clean_tweets.tweet_preprocessing(cleaned_df)
+
+        print(cleaned_df['polarity'][0:5])
+
+        cleaned_df.to_csv('data/clean_processed_tweet_data.csv')
