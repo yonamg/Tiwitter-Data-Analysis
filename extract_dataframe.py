@@ -41,12 +41,16 @@ class TweetDfExtractor:
         return statuses_count
         
     def find_full_text(self)->list:
-        try:
-            text = [x['full_text'] for x in self.tweets_list]
-        except KeyError:
-            text = None
+        text = []
+        for x in self.tweets_list:
+            try:
+                text.append([x['full_text'] for x in self.tweets_list])
+            except KeyError:
+                text.append(x['full_text'])
+
         return text
-       
+
+
     
     def find_sentiments(self, text)->list:
         polarity = [TextBlob(x).polarity for x in text]
