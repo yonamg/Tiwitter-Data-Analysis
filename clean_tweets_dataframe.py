@@ -64,3 +64,9 @@ class Clean_Tweets:
         return df
 
     def tweet_preprocessing(self, df: pd.DataFrame) -> pd.DataFrame:
+        import numpy as np
+        import string
+        from nltk.corpus import stopwords
+        from cleantext import clean
+
+        
