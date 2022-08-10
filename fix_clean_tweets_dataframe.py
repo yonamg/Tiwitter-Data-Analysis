@@ -17,15 +17,16 @@ class Clean_Tweets:
         the data collection stage.  
         """
         unwanted_rows = df[df['retweet_count'] == 'retweet_count' ].index
-        df.drop(unwanted_rows , inplace=True)
-        df = df[df['polarity'] != 'polarity']
+        self.df.drop(unwanted_rows , inplace=True)
+        self.df = self.df[self.df['polarity'] != 'polarity']
         
-        return df
+        return self.df
     def drop_duplicate(self, df:pd.DataFrame)->pd.DataFrame:
         """
         drop duplicate rows
         """
-        
+        no_duplicate = self.df.drop_duplicates(subset="original_text")
+        df = no_duplicate
 
         
         return df
