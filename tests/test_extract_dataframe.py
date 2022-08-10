@@ -55,9 +55,23 @@ class TestTweetDfExtractor(unittest.TestCase):
         self.assertEqual(self.df.find_statuses_count(), [8097, 5831, 1627, 1627, 18958])
 
     def test_find_full_text(self):
-        text = <provide a list of the first five full texts>
+        # text = [ "RT @i_ameztoy: Extra random image (I):",
+        #           "RT @IndoPac_Info: #China's media explains the military reasons for each area of the drills in the #Taiwan Strait",
+        #           "China even cut off communication, they don't anwer phonecalls from the US. But here clown @ZelenskyyUa enters the stage to ask #XiJinping to change Putin's mind.",
+        #           "Putin to #XiJinping : I told you my friend, Taiwan will be a vassal state, including nukes, much like the Ukrainian model. I warned you... But it took Pelosi to open China's eyes.",
+        #           "RT @ChinaUncensored: Iâ€™m sorry, I thought Taiwan was an independent country because it had its own government, currency, military, travel dâ€¦"
 
+        #        ]
+        text = [
+            "RT @i_ameztoy Extra random image I Lets focus in one very specific zone of the western coast gt Longjing District Taichung #City #Ta",
+            "RT @IndoPac_Info #Chinas media explains the military reasons for each area of the drills in the #Taiwan Strait Read the labels in the pi",
+            "China even cut off communication they dont anwer phonecalls from the US But here clown @ZelenskyyUa enters the stage to ask #XiJinping to change Putins mind",
+            "Putin to #XiJinping I told you my friend Taiwan will be a vassal state including nukes much like the Ukrainian model I warned you But it took Pelosi to open Chinas eyes",
+            "RT @ChinaUncensored I’m sorry I thought Taiwan was an independent country because it had its own government currency military travel d"
+        ]
         self.assertEqual(self.df.find_full_text(), text)
+
+        
 
     def test_find_sentiments(self):
         self.assertEqual(
